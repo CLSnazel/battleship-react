@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import Header from './components/header';
+import Board from './components/board';
 import { BrowserRouter } from 'react-router-dom'
 import './styles/App.css';
 
@@ -9,6 +10,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
+        <Board showShips={true}/>
+        <Board showShips={false}/>
         {/* <header className="App-header">
           
           <img src={logo} className="App-logo" alt="logo" />
