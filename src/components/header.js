@@ -2,7 +2,7 @@ import React from 'react';
 
 ///TODO: edit and style based on UI designs
 
-export default class Header {
+class Header extends React.Component{
   
   render() {
     return(
@@ -12,3 +12,5 @@ export default class Header {
     );
   }
 };
+
+export default Header;
