@@ -10,8 +10,10 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-        <Board showShips={true}/>
-        <Board showShips={false}/>
+        <h2>Your Board</h2>
+        <Board showShips={true} key={'A'} id={'A'}/>
+        <h2>Opponent's Board</h2>
+        <Board showShips={false} key={"B"} id ={'B'}/>
         {/* <header className="App-header">
           
           <img src={logo} className="App-logo" alt="logo" />

@@ -5,42 +5,57 @@ const initBoard = function() {
   let board = [];
   let newRow = [];
   for (let j = 0; j < 10; j++) {
-    newRow.push('🌊');
+    newRow.push('');
   }
   for(let i = 0; i < 10; i++){
-    board.push(newRow);
+    board.push([...newRow]);
   }
   return board;
 }
 
-const testBoard = [ 
+let testBoard = [
   [ '', '', '', '', '', '', '', '', '', '' ],
-[ '', '', '', '', '', '', '', '', '', '' ],
-[ '', '', '', '', '', '', '', '', '', '' ],
-[ '', '', '🚢', '🚢', '🚢', '🚢', '🚢', '', '', '' ],
-[ '', '', '', '', '', '', '', '', '', '' ],
-[ '', '', '', '', '', '⛵', '', '', '', '' ],
-[ '', '', '', '', '', '⛵', '', '', '', '' ],
-[ '', '', '', '', '', '⛵', '', '', '', '' ],
-[ '', '', '', '', '', '⛵', '', '', '', '' ],
-[ '', '', '', '', '', '', '', '', '', '' ] ]
+  [ '', '', '', '', '', '', '', '', '', '' ],
+  [ '', '', '', '', '', '', '', '', '', '' ],
+  [ '', '', '🚢', '🚢', '🚢', '🚢', '🚢', '', '', '' ],
+  [ '', '', '', '', '', '', '', '', '', '' ],
+  [ '', '', '', '', '', '⛵', '', '', '', '' ],
+  [ '', '', '', '', '', '⛵', '', '', '', '' ],
+  [ '', '', '', '', '', '⛵', '', '', '', '' ],
+  [ '', '', '', '', '', '⛵', '', '', '', '' ],
+  [ '', '', '', '', '', '', '', '', '', '' ] 
+]
 
 class Board extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      boardArray:testBoard,
+      // boardArray:[
+      //   [ '', '', '', '', '', '', '', '', '', '' ],
+      //   [ '', '', '', '', '', '', '', '', '', '' ],
+      //   [ '', '', '', '', '', '', '', '', '', '' ],
+      //   [ '', '', '🚢', '🚢', '🚢', '🚢', '🚢', '', '', '' ],
+      //   [ '', '', '', '', '', '', '', '', '', '' ],
+      //   [ '', '', '', '', '', '⛵', '', '', '', '' ],
+      //   [ '', '', '', '', '', '⛵', '', '', '', '' ],
+      //   [ '', '', '', '', '', '⛵', '', '', '', '' ],
+      //   [ '', '', '', '', '', '⛵', '', '', '', '' ],
+      //   [ '', '', '', '', '', '', '', '', '', '' ] 
+      // ],
+      boardArray:initBoard(),
     }
   }
-
+  
   updateBoardTile(row, col, newState) {
-    let tempArr = this.state.boardArray;
+    console.log("I am updating the board...");
+    //let tempArr = [...this.state.boardArray];
+    let tempArr = this.state.boardArray.slice();
     tempArr[row][col] = newState;
-    this.setState({boardArray:tempArr});
+    this.setState({boardArray:tempArr.slice()});
   }
   render() {
     return(
-      <table>
+      <table key={this.props.key}>
         <thead>
           <tr>
             <th></th>
@@ -68,7 +83,7 @@ class Board extends React.Component {
           <BoardRow showShips={this.props.showShips} rowNum={9}/>
           <BoardRow showShips={this.props.showShips} rowNum={10}/> */}
           {this.state.boardArray.map((boardRow, index) => {
-            return <BoardRow showShips={this.props.showShips} rowNum={index} rowData={boardRow} parentCallback={this.updateBoardTile.bind(this)}/>
+            return <BoardRow key={`${this.props.id}R${index}`} id={`${this.props.id}R${index}`} showShips={this.props.showShips} rowNum={index} rowData={boardRow} parentCallback={(row, col, newState) => this.updateBoardTile(row, col, newState)}/>
           })}
         </tbody>
         <tfoot></tfoot>
