@@ -15,40 +15,55 @@ const board =
   [ '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊' ],
   [ '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊' ] ]; 
 
-  const placeShip = function (size, board) {
+  const placeShip = function (size, board, emoji) {
     const distance = size - 1;
     let newBoard = board.map(function(arr) {
       return arr.slice();
        });
     let startCol;
     let startRow;
-    do {
-      startCol = Math.floor(Math.random() * 9); 
-      startRow = Math.floor(Math.random() * 9); 
-    } while(newBoard[startRow][startCol] !== '🌊'); 
-    const startPoint = [startRow, startCol]; 
-    console.log(startPoint); 
-    // get endPoints 
-    const endPoints = findEnds(startRow, startCol, distance); 
-    // check direction
-    for(const end of endPoints) {
-      const direction = checkDirection(startPoint, end);
-      console.log('end:', end, 'direction:', direction); 
-      const boats = checkForShips(startPoint, newBoard, direction, size); 
-      console.log('there are boats:', boats); 
-      if(!boats) {
-        newBoard = addEachShipTile(startPoint, newBoard, direction, size); 
-        return newBoard; 
+    let boatAdded = false;
+    while(!boatAdded){
+      //pick random non-ship spot
+      do {
+        startCol = Math.floor(Math.random() * 9); 
+        startRow = Math.floor(Math.random() * 9); 
+      } while(newBoard[startRow][startCol] !== '🌊');
+    
+      const startPoint = [startRow, startCol]; 
+      console.log(startPoint); 
+      // get endPoints 
+      const endPoints = findEnds(startRow, startCol, distance); 
+      // check direction, remove endpoint if colliding
+      for(let i = endPoints.length - 1; i >= 0; i--) {
+        const direction = checkDirection(startPoint, endPoints[i]);
+        console.log('end:', endPoints[i], 'direction:', direction); 
+        const boats = checkForShips(startPoint, newBoard, direction, size); 
+        console.log('there are boats:', boats); 
+        if (boats) {
+          //kill the endpoint
+          endPoints.splice(i,1);
+        }
+        // if(!boats) {
+        //   newBoard = addEachShipTile(startPoint, direction, size, newBoard, emoji); 
+        //   boatAdded = true;
+        //   break;
+        // }
       }
+
+      //check the remaining endpoints
+      if(endPoints.length > 0) {
+        // if endpoints.length > 0, coin toss to pick endpoint & add that ship
+        let randomDirection = Math.floor(Math.random() * endPoints.length);
+        let direction = checkDirection(startPoint, endPoints[randomDirection]);
+        newBoard = addEachShipTile(startPoint, direction, size, newBoard, emoji );
+        boatAdded = true;
+      }
+      
+
     }
+    return newBoard; 
   };
-
-
-const ship1 = placeShip(5, board); 
-const ship2 = placeShip(5, ship1); 
-const ship3 = placeShip(5, ship2); 
-const ship4 = placeShip(5, ship3); 
-const ship5 = placeShip(5, ship4); 
 
 const print = function(board) {
   console.log('   A B C D E F G H I J');
@@ -63,4 +78,14 @@ const print = function(board) {
   });
 }
 
+
+const ship1 = placeShip(5, board, '🚢'); 
+print(ship1); 
+const ship2 = placeShip(4, ship1, '⛵'); 
+print(ship2); 
+const ship3 = placeShip(3, ship2, '🛹 '); 
+print(ship3); 
+const ship4 = placeShip(3, ship3, '🚣'); 
+print(ship4); 
+const ship5 = placeShip(2, ship4, '🏄'); 
 print(ship5); 
