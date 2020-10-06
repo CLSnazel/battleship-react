@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const addEachShipTile = require('../addEachShipTile'); 
+const addEachShipTile = require('../messing-around/addEachShipTile'); 
 
 const board = 
 [ [ '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊' ],

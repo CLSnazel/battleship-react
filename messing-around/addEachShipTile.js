@@ -1,4 +1,4 @@
-const addEachShipTile = (start, board, direction, size) => {
+const addEachShipTile = (start, direction, size, board) => {
   const newBoard = board.map(function(arr) {
     return arr.slice();
      });

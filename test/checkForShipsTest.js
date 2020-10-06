@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const checkForShips  = require('../checkForShips'); 
+const checkForShips  = require('../messing-around/checkForShips'); 
 // boats at [2,4] [3, 4] [4, 4] [5, 4] [6, 4]
 const verticalBoard = 
 [ [ '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊', '🌊' ],
