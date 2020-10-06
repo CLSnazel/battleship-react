@@ -7,30 +7,33 @@ class BoardTile extends React.Component{
       emoji: "🌊",
     }
   }
-  cycleEmoji(){
-    console.log("Hello!!!");
-    if (this.state.emoji === "🌊") {
-      // this.state.emoji = "🔥";
-      this.setState({emoji:"🔥"});
-    } else if (this.state.emoji === "🔥") {
-      // this.state.emoji = "⚪";
-      this.setState({emoji:"⚪"});
+  changeEmoji(){
+   
+    let newEmoji = "";
+    
+    if (this.props.ship !== "⚪" && this.props.ship !== "") {
+      newEmoji = "🔥";
     } else {
-      // this.state.emoji = "🌊";
-      this.setState({emoji:"🌊"});
+      newEmoji = "⚪"
     }
+        
+    console.log("Hello!!!", newEmoji);
+    return newEmoji;
   }
   render() {
-    //console.log(this.props, this.props.whateverProps);
-    // if(this.props.boardState === undefined) {
 
-    // }
     return(
    
-        <td style={{border:'1px solid blue', cursor:'pointer'}} onClick={() => this.cycleEmoji()}>
-          {this.state.emoji}
-        </td>
-     
+        <td style={{border:'1px solid blue', cursor:'pointer', fontSize:"1.5em"}} onClick={() => {
+          let newState = this.changeEmoji();
+          if (newState !== "" && this.props.ship !== newState) {
+            this.props.parentCallback(this.props.row, this.props.col, newState);
+          }
+          }}>
+        
+        {this.props.showShips && this.props.ship ? this.props.ship : this.props.ship === "⚪" || this.props.ship === "🔥" ? this.props.ship : "🌊"}
+   
+      </td>
     );
   }
 }
