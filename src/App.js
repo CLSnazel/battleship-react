@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import Header from './components/header';
 import Board from './components/board';
+import Button from './components/button';
 import { BrowserRouter } from 'react-router-dom'
 import './styles/App.css';
 
@@ -10,6 +11,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
+        <Button />
         <h2>Your Board</h2>
         <Board showShips={true} key={'A'} id={'A'}/>
         <h2>Opponent's Board</h2>
@@ -31,6 +33,7 @@ function App() {
         </header> */}
         <div>
           <p>Here's this super awesome game we're building</p>
+          
         </div>
       </div>
     </BrowserRouter>

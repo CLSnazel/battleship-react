@@ -7,7 +7,7 @@ class Header extends React.Component{
   render() {
     return(
       <div>
-        <h1> Battle Ship!!!</h1>
+        <h1> Battle Ship!!</h1>
       </div>
     );
   }
